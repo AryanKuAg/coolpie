@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_universe/detail_page.dart';
 import 'package:flutter_universe/localDatabase.dart';
+import 'package:flutter_universe/saved_page.dart';
 import 'constants.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -15,13 +16,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          LocalDatabase localDatabase = LocalDatabase();
-          var savedValues = localDatabase.getLocalSavedValue();
-          if (savedValues != null) print(savedValues);
-        },
-      ),
       backgroundColor: gradientEndColor,
       body: Container(
         decoration: BoxDecoration(
@@ -177,8 +171,14 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {},
             ),
             IconButton(
-              icon: Image.asset('assets/search_icon.png'),
-              onPressed: () {},
+              icon: Image.asset(
+                'assets/search_icon.png',
+                color: Colors.blue,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => SavedPage()));
+              },
             ),
             IconButton(
               icon: Image.asset('assets/profile_icon.png'),

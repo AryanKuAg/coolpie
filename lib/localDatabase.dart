@@ -46,13 +46,16 @@ class LocalDatabase {
   }
 
   void saveLocalSavedValue(LocalSavedValue localSavedValue) async {
+    String value =
+        localSavedValue.value.replaceAll('\"', ' ').replaceAll('\'', ' ');
+    print(value);
     var dbClient = await db;
     await dbClient.transaction((txn) async {
       return await txn.rawInsert(
-          'INSERT INTO LocalSavedValue(value, image ) VALUES(' +
-              '\'' +
-              localSavedValue.value +
-              '\'' +
+          "INSERT INTO LocalSavedValue(value, image ) VALUES(" +
+              "\'" +
+              value +
+              "\'" +
               ',' +
               '\'' +
               localSavedValue.image +
