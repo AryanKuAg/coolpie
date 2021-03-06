@@ -17,6 +17,10 @@ dependencies:
   http:
   rive: ^0.6.8
   google_fonts:
+  sqflite:
+  path:
+  cached_network_image: ^2.5.0
+  path_provider:
 
   flutter:
     sdk: flutter

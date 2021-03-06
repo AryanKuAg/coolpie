@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:flutter_universe/constants.dart';
 import 'package:flutter_universe/data.dart';
+import 'package:flutter_universe/localDatabase.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:rive/rive.dart' as rive;
@@ -91,15 +93,23 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
   }
 
   swipeCompleteCallback() {
-    SnackBar snackBar = SnackBar(
-      content: Text(
-        'Saved in your gallery!!!',
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      duration: Duration(milliseconds: 300),
-      backgroundColor: isRightSwipe ? Colors.greenAccent : Colors.black54,
-    );
-    scaffoldkey.currentState.showSnackBar(snackBar);
+    LocalSavedValue localSavedValue =
+        LocalSavedValue(image: icon_url, value: joke);
+    LocalDatabase localDatabase = LocalDatabase();
+
+    if (joke != '') {
+      localDatabase.saveLocalSavedValue(localSavedValue);
+
+      SnackBar snackBar = SnackBar(
+        content: Text(
+          'Saved in your gallery!!!',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        duration: Duration(milliseconds: 300),
+        backgroundColor: isRightSwipe ? Colors.greenAccent : Colors.black54,
+      );
+      scaffoldkey.currentState.showSnackBar(snackBar);
+    }
   }
 
   @override
@@ -155,8 +165,8 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
                         Positioned(
                           left: mediaQuery.width / 3 + 10,
                           top: 5,
-                          child: Image.network(
-                            icon_url,
+                          child: CachedNetworkImage(
+                            imageUrl: icon_url,
                             height: 50,
                             width: 50,
                             alignment: Alignment.topCenter,
@@ -173,7 +183,7 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
                             child: Text(
                               joke.toString(),
                               style: GoogleFonts.acme(
-                                  color: Colors.black.withOpacity(0.8),
+                                  color: Colors.black.withOpacity(0.7),
                                   wordSpacing: 1.2,
                                   fontWeight: FontWeight.bold,
                                   fontSize: textScaleFactor * 20),

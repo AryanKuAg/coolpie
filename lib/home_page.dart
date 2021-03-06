@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_universe/detail_page.dart';
+import 'package:flutter_universe/localDatabase.dart';
 import 'constants.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -14,6 +15,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          LocalDatabase localDatabase = LocalDatabase();
+          var savedValues = localDatabase.getLocalSavedValue();
+          if (savedValues != null) print(savedValues);
+        },
+      ),
       backgroundColor: gradientEndColor,
       body: Container(
         decoration: BoxDecoration(
