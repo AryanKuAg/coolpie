@@ -1,4 +1,5 @@
 import 'package:flutter_universe/specificApiScreen/chucknorris/chuckNorrisScreen.dart';
+import 'package:flutter_universe/specificApiScreen/numbers/numbersScreen.dart';
 
 class ApiInfo {
   final int position;
@@ -21,16 +22,9 @@ List<ApiInfo> apis = [
   ),
   ApiInfo(
     2,
-    name: 'Chuck Norris',
-    iconImage: 'assets/chucknorris.png',
-    description: "Cool Facts of Chunk Norris",
-    page: ChuckNorrisScreen(),
-  ),
-  ApiInfo(
-    3,
-    name: 'Chuck Norris',
-    iconImage: 'assets/chucknorris.png',
-    description: "Cool Facts of Chunk Norris",
-    page: ChuckNorrisScreen(),
+    name: 'Numbers',
+    iconImage: 'assets/math.png',
+    description: "Interesting facts about numbers",
+    page: NumbersScreen(),
   ),
 ];

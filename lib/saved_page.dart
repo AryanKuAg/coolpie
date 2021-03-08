@@ -6,6 +6,7 @@ import 'package:flutter_universe/constants.dart';
 import 'package:flutter_universe/data.dart';
 import 'package:flutter_universe/localDatabase.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 Future<List<LocalSavedValue>> fetchLocalSavedValueFromDatabase() async {
   LocalDatabase localDatabase = LocalDatabase();
@@ -39,7 +40,7 @@ class _SavedPageState extends State<SavedPage> {
               future: fetchLocalSavedValueFromDatabase(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: Lottie.asset('assets/nodata.json'));
                 }
 
                 if (snapshot.hasData) {
@@ -128,11 +129,11 @@ class _SavedPageState extends State<SavedPage> {
                     ),
                   );
                 } else if (snapshot.data.length == 0) {
-                  return Text('No Data found');
+                  return Lottie.asset('assets/nodata.json');
                 }
                 return Container(
                   alignment: AlignmentDirectional.center,
-                  child: CircularProgressIndicator(),
+                  child: Lottie.asset('assets/nodata.json'),
                 );
               }),
         ),
@@ -151,7 +152,7 @@ class _SavedPageState extends State<SavedPage> {
             IconButton(
               icon: Image.asset(
                 'assets/menu_icon.png',
-                color: Colors.grey,
+                color: Colors.white38,
               ),
               onPressed: () {},
             ),

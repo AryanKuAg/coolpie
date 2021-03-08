@@ -21,6 +21,7 @@ dependencies:
   path:
   cached_network_image: ^2.5.0
   path_provider:
+  lottie:
 
   flutter:
     sdk: flutter

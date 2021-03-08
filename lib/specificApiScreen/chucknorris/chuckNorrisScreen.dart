@@ -10,6 +10,7 @@ import 'package:flutter_universe/data.dart';
 import 'package:flutter_universe/localDatabase.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart' as rive;
 
 GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
@@ -192,7 +193,9 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
                               textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
+                        )
+                      else
+                        Lottie.asset('assets/nodata.json'),
                     ],
                   ),
                   cardController: CardController(),

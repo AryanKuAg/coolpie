@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: Image.asset(
                 'assets/search_icon.png',
-                color: Colors.blue,
+                color: Colors.white38,
               ),
               onPressed: () {
                 Navigator.push(
