@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
+// import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_universe/constants.dart';
@@ -15,13 +17,16 @@ class AdviceScreen extends StatefulWidget {
 
 class _AdviceScreenState extends State<AdviceScreen>
     with TickerProviderStateMixin {
+  // AdmobInterstitial interstitialAd;
   String value = 'Hit that monk with the stone';
   void _togglePlay() {
     setState(() {
       _riveArtboard
           .addController(_controller = rive.SimpleAnimation('Animation 2'));
       getData;
-      Future.delayed(Duration(milliseconds: 1000), () {
+    });
+    Future.delayed(Duration(seconds: 10), () {
+      setState(() {
         _riveArtboard
             .addController(_controller = rive.SimpleAnimation('Animation 1'));
         print('hey yo');
@@ -35,6 +40,14 @@ class _AdviceScreenState extends State<AdviceScreen>
   @override
   void initState() {
     super.initState();
+    // interstitialAd = AdmobInterstitial(
+    //   adUnitId: getInterstitialAdUnitId(),
+    //   listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+    //     if (event == AdmobAdEvent.closed) interstitialAd.load();
+    //   },
+    // );
+    // interstitialAd.load();
+    // triggerInterstitialAd();
     rootBundle.load('assets/monk.riv').then((data) async {
       final file = rive.RiveFile();
 
@@ -51,6 +64,12 @@ class _AdviceScreenState extends State<AdviceScreen>
       }
     });
   }
+
+  // triggerInterstitialAd() async {
+  //   if (await interstitialAd.isLoaded) {
+  //     interstitialAd.show();
+  //   }
+  // }
 
   void get getData async {
     const url = 'https://api.adviceslip.com/advice';
@@ -97,7 +116,7 @@ class _AdviceScreenState extends State<AdviceScreen>
                   ),
                   _riveArtboard == null
                       ? const SizedBox()
-                      : DragTarget(
+                      : DragTarget<int>(
                           builder: (
                             BuildContext context,
                             List<dynamic> accepted,
@@ -114,12 +133,13 @@ class _AdviceScreenState extends State<AdviceScreen>
                           },
                         ),
                   Spacer(),
-                  Draggable(
+                  Draggable<int>(
                     child: Image.asset(
                       'assets/rock.png',
                       height: 100,
                       width: 200,
                     ),
+                    data: 10,
                     feedback: Image.asset(
                       'assets/rock.png',
                       height: 50,
@@ -135,4 +155,13 @@ class _AdviceScreenState extends State<AdviceScreen>
               ),
             )));
   }
+}
+
+String getInterstitialAdUnitId() {
+  if (Platform.isIOS) {
+    return 'ca-app-pub-3940256099942544/4411468910';
+  } else if (Platform.isAndroid) {
+    return 'ca-app-pub-3940256099942544/1033173712';
+  }
+  return null;
 }

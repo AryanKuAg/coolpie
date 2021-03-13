@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:flutter_universe/constants.dart';
 import 'package:flutter_universe/data.dart';
-import 'package:flutter_universe/localDatabase.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -94,12 +94,12 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
   }
 
   swipeCompleteCallback() {
-    LocalSavedValue localSavedValue =
-        LocalSavedValue(image: icon_url, value: joke);
-    LocalDatabase localDatabase = LocalDatabase();
+    // LocalSavedValue localSavedValue =
+    //     LocalSavedValue(image: icon_url, value: joke);
+    // LocalDatabase localDatabase = LocalDatabase();
 
     if (joke != '') {
-      localDatabase.saveLocalSavedValue(localSavedValue);
+      // localDatabase.saveLocalSavedValue(localSavedValue);
 
       SnackBar snackBar = SnackBar(
         content: Text(
@@ -220,7 +220,7 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
                     });
 
                     getData;
-                    swipeCompleteCallback();
+                    // swipeCompleteCallback();
 
                     /// Get orientation & index of swiped card!
                   },

@@ -1,8 +1,10 @@
+// import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // Admob.initialize(testDeviceIds: ['e7c51770-967b-4fe3-ab26-474dee5f2b4c']);
   runApp(MyApp());
 }
 

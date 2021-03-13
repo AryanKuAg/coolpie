@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902988290534",
+    "project_id": "coolpie-58aec",
+    "storage_bucket": "coolpie-58aec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902988290534:android:93f84ea254334535705e27",
+        "android_client_info": {
+          "package_name": "xyz.funfury.coolpie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902988290534-o1tqilpjdojaepf1bkcv2rpm4f518csd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2G-TO0Ma_H4UZYf7HwHscC6sCoNd2VRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902988290534-o1tqilpjdojaepf1bkcv2rpm4f518csd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -171,16 +171,6 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {},
             ),
             IconButton(
-              icon: Image.asset(
-                'assets/search_icon.png',
-                color: Colors.white38,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => SavedPage()));
-              },
-            ),
-            IconButton(
               icon: Image.asset('assets/profile_icon.png'),
               onPressed: () {},
             ),
