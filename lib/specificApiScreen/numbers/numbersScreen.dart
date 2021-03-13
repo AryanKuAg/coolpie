@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_universe/constants.dart';
+import 'package:flutter_universe/specificApiScreen/advice/adviceScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:http/http.dart' as http;
@@ -15,6 +17,7 @@ class NumbersScreen extends StatefulWidget {
 class _NumbersScreenState extends State<NumbersScreen>
     with TickerProviderStateMixin {
   bool _isAnimation1 = false;
+  AdmobInterstitial interstitialAd;
   TextEditingController _textEditingController = TextEditingController();
   String _value = 'Search, My Dear!!!';
 
@@ -51,6 +54,17 @@ class _NumbersScreenState extends State<NumbersScreen>
   @override
   void initState() {
     super.initState();
+    interstitialAd = AdmobInterstitial(
+      adUnitId: getInterstitialAdUnitId(),
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.closed) interstitialAd.load();
+      },
+    );
+    interstitialAd.load();
+
+    Future.delayed(Duration(seconds: 3), () {
+      interstitialAd.show();
+    });
     rootBundle.load('assets/searchanimation.riv').then((data) async {
       final file = rive.RiveFile();
 
@@ -101,6 +115,12 @@ class _NumbersScreenState extends State<NumbersScreen>
     //   print(e.toString());
     //   print('error');
     // }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    interstitialAd.dispose();
   }
 
   String dropdownValue = 'Trivia';

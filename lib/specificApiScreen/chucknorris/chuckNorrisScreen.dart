@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:flutter_universe/constants.dart';
 import 'package:flutter_universe/data.dart';
+import 'package:flutter_universe/specificApiScreen/advice/adviceScreen.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +24,7 @@ class ChuckNorrisScreen extends StatefulWidget {
 
 class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
     with TickerProviderStateMixin, SingleTickerProviderStateMixin {
+  AdmobInterstitial interstitialAd;
   //card data
   String icon_url = '';
   String joke = '';
@@ -57,6 +60,17 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
   @override
   void initState() {
     super.initState();
+    interstitialAd = AdmobInterstitial(
+      adUnitId: getInterstitialAdUnitId(),
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.closed) interstitialAd.load();
+      },
+    );
+    interstitialAd.load();
+
+    Future.delayed(Duration(seconds: 3), () {
+      interstitialAd.show();
+    });
     rootBundle.load('assets/marty_v6.riv').then((data) async {
       final file = rive.RiveFile();
 
@@ -73,6 +87,12 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
       }
     });
     getData;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    interstitialAd.dispose();
   }
 
   void get getData async {

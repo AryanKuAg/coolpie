@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_universe/constants.dart';
+import 'package:flutter_universe/specificApiScreen/advice/adviceScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:http/http.dart' as http;
@@ -21,10 +23,22 @@ class _TronalddumpScreenState extends State<TronalddumpScreen>
   rive.RiveAnimationController _controller;
   ConfettiController _controllerTopCenter;
   String dataString = 'CLICK HERE!!!';
+  AdmobInterstitial interstitialAd;
 
   @override
   void initState() {
     super.initState();
+    interstitialAd = AdmobInterstitial(
+      adUnitId: getInterstitialAdUnitId(),
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.closed) interstitialAd.load();
+      },
+    );
+    interstitialAd.load();
+
+    Future.delayed(Duration(seconds: 3), () {
+      interstitialAd.show();
+    });
     _controllerTopCenter =
         ConfettiController(duration: const Duration(seconds: 5));
     rootBundle.load('assets/deerdance.riv').then((data) async {
@@ -46,6 +60,7 @@ class _TronalddumpScreenState extends State<TronalddumpScreen>
   @override
   void dispose() {
     super.dispose();
+    interstitialAd.dispose();
     _controllerTopCenter.dispose();
   }
 

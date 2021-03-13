@@ -23,7 +23,7 @@ dependencies:
   path_provider:
   lottie:
   confetti: ^0.5.5
-#  admob_flutter: 1.0.1
+  admob_flutter: 1.0.1
 
   flutter:
     sdk: flutter

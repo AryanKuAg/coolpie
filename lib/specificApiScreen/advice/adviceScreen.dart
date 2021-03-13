@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-// import 'package:admob_flutter/admob_flutter.dart';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_universe/constants.dart';
@@ -17,7 +17,7 @@ class AdviceScreen extends StatefulWidget {
 
 class _AdviceScreenState extends State<AdviceScreen>
     with TickerProviderStateMixin {
-  // AdmobInterstitial interstitialAd;
+  AdmobInterstitial interstitialAd;
   String value = 'Hit that monk with the stone';
   void _togglePlay() {
     setState(() {
@@ -40,13 +40,17 @@ class _AdviceScreenState extends State<AdviceScreen>
   @override
   void initState() {
     super.initState();
-    // interstitialAd = AdmobInterstitial(
-    //   adUnitId: getInterstitialAdUnitId(),
-    //   listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-    //     if (event == AdmobAdEvent.closed) interstitialAd.load();
-    //   },
-    // );
-    // interstitialAd.load();
+    interstitialAd = AdmobInterstitial(
+      adUnitId: getInterstitialAdUnitId(),
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.closed) interstitialAd.load();
+      },
+    );
+    interstitialAd.load();
+
+    Future.delayed(Duration(seconds: 3), () {
+      interstitialAd.show();
+    });
     // triggerInterstitialAd();
     rootBundle.load('assets/monk.riv').then((data) async {
       final file = rive.RiveFile();
@@ -66,10 +70,20 @@ class _AdviceScreenState extends State<AdviceScreen>
   }
 
   // triggerInterstitialAd() async {
-  //   if (await interstitialAd.isLoaded) {
+  //   bool isLoaded = await interstitialAd.isLoaded;
+  //
+  //   if (isLoaded) {
   //     interstitialAd.show();
+  //   } else {
+  //     print('ads load nahi hua');
   //   }
   // }
+
+  @override
+  void dispose() {
+    super.dispose();
+    interstitialAd.dispose();
+  }
 
   void get getData async {
     const url = 'https://api.adviceslip.com/advice';
