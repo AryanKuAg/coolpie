@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart' as rive;
+import 'package:shared_preferences/shared_preferences.dart';
 
 GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
@@ -68,8 +69,16 @@ class _ChuckNorrisScreenState extends State<ChuckNorrisScreen>
     );
     interstitialAd.load();
 
-    Future.delayed(Duration(seconds: 3), () {
-      interstitialAd.show();
+    Future.delayed(Duration(seconds: 3), () async {
+      Future<SharedPreferences> sharedPreferences =
+          SharedPreferences.getInstance();
+      SharedPreferences sp = await sharedPreferences;
+      var code = sp.get('code');
+      if (code != null && code == 'alemantrix') {
+        print('Ads is Disabled!!!');
+      } else {
+        interstitialAd.show();
+      }
     });
     rootBundle.load('assets/marty_v6.riv').then((data) async {
       final file = rive.RiveFile();

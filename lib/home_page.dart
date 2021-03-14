@@ -4,6 +4,7 @@ import 'package:flutter_universe/localDatabase.dart';
 import 'package:flutter_universe/saved_page.dart';
 import 'constants.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_universe/donationScreen.dart';
 
 import 'data.dart';
 
@@ -168,11 +169,17 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             IconButton(
               icon: Image.asset('assets/menu_icon.png'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              },
             ),
             IconButton(
               icon: Image.asset('assets/profile_icon.png'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => DonationScreen()));
+              },
             ),
           ],
         ),

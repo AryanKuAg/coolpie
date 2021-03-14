@@ -24,6 +24,8 @@ dependencies:
   lottie:
   confetti: ^0.5.5
   admob_flutter: 1.0.1
+  shared_preferences: ^2.0.4
+  shake: ^0.1.0
 
   flutter:
     sdk: flutter

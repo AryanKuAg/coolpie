@@ -9,6 +9,7 @@ import 'package:flutter_universe/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdviceScreen extends StatefulWidget {
   @override
@@ -48,8 +49,16 @@ class _AdviceScreenState extends State<AdviceScreen>
     );
     interstitialAd.load();
 
-    Future.delayed(Duration(seconds: 3), () {
-      interstitialAd.show();
+    Future.delayed(Duration(seconds: 3), () async {
+      Future<SharedPreferences> sharedPreferences =
+          SharedPreferences.getInstance();
+      SharedPreferences sp = await sharedPreferences;
+      var code = sp.get('code');
+      if (code != null && code == 'alemantrix') {
+        print('Ads is Disabled!!!');
+      } else {
+        interstitialAd.show();
+      }
     });
     // triggerInterstitialAd();
     rootBundle.load('assets/monk.riv').then((data) async {
